@@ -150,7 +150,7 @@ pause_text = f1.render("Pause", True, WHITE)
 direction = 'None'
 time_sleep = 0.1
 flag_for_pause = False
-
+flag_for_go = True
 
 running = True
 while running:
@@ -169,25 +169,33 @@ while running:
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
-                if direction == "down":
-                    pass
-                else:
-                    direction = "up"
+                if flag_for_go:
+                    if direction == "down":
+                        pass
+                    else:
+                        direction = "up"
+                    flag_for_go = False
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-                if direction == "left":
-                    pass
-                else:
-                    direction = "right"
+                if flag_for_go:
+                    if direction == "left":
+                        pass
+                    else:
+                        direction = "right"
+                    flag_for_go = False
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_a:
-                if direction == "right":
-                    pass
-                else:
-                    direction = "left"
+                if flag_for_go:
+                    if direction == "right":
+                        pass
+                    else:
+                        direction = "left"
+                    flag_for_go = False
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-                if direction == "up":
-                    pass
-                else:
-                    direction = "down"
+                if flag_for_go:
+                    if direction == "up":
+                        pass
+                    else:
+                        direction = "down"
+                    flag_for_go = False
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 flag_for_pause = not flag_for_pause
@@ -201,7 +209,6 @@ while running:
             time_sleep = 0.1
 
         pygame.draw.rect(screen, BLACK, (body[-1].rect.x, body[-1].rect.y, width, height))
-        print(head.rect.x, head.direction)
 
         all_sprites.update()
         all_sprites.draw(screen)
@@ -221,6 +228,7 @@ while running:
             running = False
 
         pygame.display.flip()
+        flag_for_go = True
         time.sleep(time_sleep)
 
 pygame.quit()
